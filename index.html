@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple Learning Management System prototype for students and instructors.">
+  <title>LearnHub | Learning Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="LearnHub home"><span class="brand-mark">L</span><span>LearnHub</span></a>
+      <div class="side-label">MENU</div>
+      <nav>
+        <button class="nav-link active" data-page="dashboard"><span>▦</span> Dashboard</button>
+        <button class="nav-link" data-page="students"><span>♙</span> Students</button>
+        <button class="nav-link" data-page="courses"><span>▤</span> Courses</button>
+        <button class="nav-link" data-page="attendance"><span>✓</span> Attendance</button>
+        <button class="nav-link" data-page="grades"><span>★</span> Grades</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="demo-note"><strong>Demo project</strong><p>Sample data is saved in this browser.</p></div>
+        <span class="version">LearnHub LMS · v1.0</span>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="pageCrumb">Dashboard</strong></div>
+        <div class="topbar-right"><span class="online-dot"></span><span>Demo mode</span><div class="avatar">JR</div></div>
+      </header>
+
+      <div class="content">
+        <section class="page active" id="page-dashboard">
+          <div class="page-heading">
+            <div><p class="eyebrow">OVERVIEW</p><h1>Dashboard</h1><p class="muted">Welcome to your Learning Management System.</p></div>
+            <div class="date-chip" id="todayDate"></div>
+          </div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-icon purple">♙</div><p>Total Students</p><strong id="statStudents">0</strong><small>Registered learners</small></article>
+            <article class="stat-card"><div class="stat-icon blue">▤</div><p>Active Courses</p><strong id="statCourses">0</strong><small>Available courses</small></article>
+            <article class="stat-card"><div class="stat-icon green">✓</div><p>Present Today</p><strong id="statPresent">0</strong><small>Attendance records</small></article>
+            <article class="stat-card"><div class="stat-icon orange">★</div><p>Grade Records</p><strong id="statGrades">0</strong><small>Saved grades</small></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel">
+              <div class="panel-heading"><div><h2>Recently Added Students</h2><p class="muted">Latest student records</p></div><button class="text-button" data-go="students">View all →</button></div>
+              <div class="table-wrap"><table><thead><tr><th>Student</th><th>Student ID</th><th>Course</th></tr></thead><tbody id="recentStudents"></tbody></table></div>
+            </article>
+            <article class="panel quick-panel">
+              <div class="panel-heading"><div><h2>Quick Actions</h2><p class="muted">Manage your learning space</p></div></div>
+              <button class="quick-action" data-go="students"><span class="quick-icon purple">＋</span><span><b>Add a student</b><small>Create a student record</small></span><span class="arrow">→</span></button>
+              <button class="quick-action" data-go="courses"><span class="quick-icon blue">＋</span><span><b>Add a course</b><small>Create a new course</small></span><span class="arrow">→</span></button>
+              <button class="quick-action" data-go="attendance"><span class="quick-icon green">✓</span><span><b>Record attendance</b><small>Mark students present</small></span><span class="arrow">→</span></button>
+            </article>
+          </div>
+          <div class="notice"><strong>Prototype notice</strong><span>This GitHub Pages version stores demo records in your browser using localStorage. It does not have a shared online database or secure user accounts.</span></div>
+        </section>
+
+        <section class="page" id="page-students">
+          <div class="page-heading"><div><p class="eyebrow">LEARNER DIRECTORY</p><h1>Students</h1><p class="muted">Add and manage student information.</p></div><button class="primary-btn" id="addStudentBtn">＋ Add Student</button></div>
+          <article class="panel">
+            <div class="toolbar"><input id="studentSearch" class="search-input" type="search" placeholder="Search name, ID, or email…"><span class="result-count" id="studentCount"></span></div>
+            <div class="table-wrap"><table><thead><tr><th>Student</th><th>Student ID</th><th>Email</th><th>Course</th><th>Action</th></tr></thead><tbody id="studentsTable"></tbody></table></div>
+          </article>
+        </section>
+
+        <section class="page" id="page-courses">
+          <div class="page-heading"><div><p class="eyebrow">CLASS CATALOG</p><h1>Courses</h1><p class="muted">Manage subjects and course details.</p></div><button class="primary-btn" id="addCourseBtn">＋ Add Course</button></div>
+          <div class="course-grid" id="courseGrid"></div>
+        </section>
+
+        <section class="page" id="page-attendance">
+          <div class="page-heading"><div><p class="eyebrow">CLASS MONITORING</p><h1>Attendance</h1><p class="muted">Record daily student attendance.</p></div><div class="date-field"><label for="attendanceDate">Date</label><input type="date" id="attendanceDate"></div></div>
+          <article class="panel">
+            <div class="toolbar"><span class="muted">Choose a status for each student, then save.</span><button class="primary-btn" id="saveAttendanceBtn">Save Attendance</button></div>
+            <div class="table-wrap"><table><thead><tr><th>Student</th><th>Student ID</th><th>Attendance Status</th></tr></thead><tbody id="attendanceTable"></tbody></table></div>
+          </article>
+        </section>
+
+        <section class="page" id="page-grades">
+          <div class="page-heading"><div><p class="eyebrow">ACADEMIC RECORDS</p><h1>Grades</h1><p class="muted">Record and review student grades.</p></div><button class="primary-btn" id="addGradeBtn">＋ Add Grade</button></div>
+          <article class="panel">
+            <div class="toolbar"><span class="muted">Grade scale: 0–100</span><span class="result-count" id="gradeCount"></span></div>
+            <div class="table-wrap"><table><thead><tr><th>Student</th><th>Course</th><th>Grade</th><th>Remarks</th><th>Action</th></tr></thead><tbody id="gradesTable"></tbody></table></div>
+          </article>
+        </section>
+      </div>
+      <footer>© 2026 LearnHub LMS <span>Student learning made organized.</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-heading"><div><p class="eyebrow">LEARNHUB LMS</p><h2 id="modalTitle">Add record</h2></div><button class="close-btn" id="closeModal" aria-label="Close">×</button></div>
+      <form id="recordForm"><div id="formFields" class="form-fields"></div><div class="form-actions"><button type="button" class="secondary-btn" id="cancelModal">Cancel</button><button type="submit" class="primary-btn">Save Record</button></div></form>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
